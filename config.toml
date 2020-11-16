@@ -77,3 +77,5 @@ disqusShortname = "eliasforsblom" # Enable or disable Disqus.
     name = "Contact"
     weight = 3
     url = "contact"
+    
+ignoredFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$"]
