@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1605493602221.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "E90400F1",
+    "lastKnownWriteTime" : 1599122100,
+    "last_content_update" : 1599122100,
+    "path" : "~/forsblom.github.io/themes/hugo-coder-portfolio/README.md",
+    "project_path" : "themes/hugo-coder-portfolio/README.md",
+    "properties" : {
+        "cursorPosition" : "113,17",
+        "scrollLine" : "87"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "markdown"
+}
