@@ -1,7 +1,7 @@
-baseurl = "https://forsblom.netlify.app/"
-title = "Elias FOrsblom"
+baseurl = "http://www.example.com"
+title = "Yusuke Ishimi"
 
-theme = "hugo-coder-portfolio"
+theme = "coder-portfolio"
 
 DefaultContentLanguage = "en"
 
@@ -19,7 +19,7 @@ disqusShortname = "yourdiscussshortname"
     description = "Yusuke Ishimi's personal website"
     keywords = "blog,developer,personal"
     info = "WEB AND APPS ENGINEER"
-    avatarurl = "Elias/.jpg"
+    avatarurl = "images/avatar.jpg"
     footercontent = "Enter a text here."
     fixedbarContent = "Do you want to know me more private?→"
     fixedbarContentAfter = "Thank You! Please share it if you like it→"
