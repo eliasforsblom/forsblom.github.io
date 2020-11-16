@@ -5,13 +5,15 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "3539174425",
+    "hash" : "0",
     "id" : "D720969B",
-    "lastKnownWriteTime" : 1605491689,
-    "last_content_update" : 1605491689,
+    "lastKnownWriteTime" : 1605492291,
+    "last_content_update" : 1605492291419,
     "path" : "~/forsblom.github.io/config.toml",
     "project_path" : "config.toml",
     "properties" : {
+        "cursorPosition" : "0,11",
+        "scrollLine" : "0"
     },
     "read_only" : false,
     "read_only_alternatives" : [
