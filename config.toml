@@ -1,6 +1,6 @@
 baseurl = "https://forsblom.netlify.app/"
 title = "Elias Forsblom"
-theme = "coder-portfolio"
+theme = "hugo-coder-portfolio"
 languagecode = "en"
 defaultcontentlanguage = "en"
 
