@@ -15,11 +15,11 @@ pygmentsUseClasses = true
 disqusShortname = "yourdiscussshortname"
 
 [params]
-    author = "Yusuke Ishimi"
-    description = "Yusuke Ishimi's personal website"
+    author = "Elias Forsblom"
+    description = "Elias FOrsblom's acedemic blog"
     keywords = "blog,developer,personal"
-    info = "WEB AND APPS ENGINEER"
-    avatarurl = "images/avatar.jpg"
+    info = "Statistics and data analysis student"
+    avatarurl = "images/elias.jpg"
     footercontent = "Enter a text here."
     fixedbarContent = "Do you want to know me more private?→"
     fixedbarContentAfter = "Thank You! Please share it if you like it→"
