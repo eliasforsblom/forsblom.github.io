@@ -1,5 +1,5 @@
 baseurl = "https://forsblom.netlify.app/"
-title = "Elias FOrsblom"
+title = "Elias Forsblom"
 
 theme = "hugo-coder-portfolio"
 
@@ -19,7 +19,7 @@ disqusShortname = "yourdiscussshortname"
     description = "Yusuke Ishimi's personal website"
     keywords = "blog,developer,personal"
     info = "WEB AND APPS ENGINEER"
-    avatarurl = "images/Elias.jpg"
+    avatarurl = "images/avatar.jpg"
     footercontent = "Enter a text here."
     fixedbarContent = "Do you want to know me more private?→"
     fixedbarContentAfter = "Thank You! Please share it if you like it→"
