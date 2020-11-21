@@ -18,9 +18,9 @@ thumbnail: images/tn.png
 
 2 months ago the 2020-21 seasons champions league group stage was drawn and both on pubs and on the internet you could hear and read about Manchester citys - once again - shockingly easy draw. Trying to be as unbiased as I can as a Chelsea supporter I looked at the 2020-21 drawings as well as previous drawings and couldn't help feeling that Manchester citys groups the past 4 years do seem to be suspiciously easy, but from experience I am also aware that just looking at the different club names trying to form an opinion without being biased is quite hard if not impossible, especially looking a couple years back trying to remember how great a specific club was that specific year. 
 
-This made me curious and decided to try to se if I could find any statistical evidence that could support the theory of Manchester city being drawn into suspisously easy groups. 
+This made me curious and decided to try to se if I could find any statistical evidence that could support the theory of Manchester city being drawn into suspiciously easy groups. 
 
-First of all, I needed to find the datasets that would allow me to do the testing and I began with the easiest, the different groups that had been drawn between 2014 and 2020. When doing the tests I am using data from every group, not only Manchester citys group, but for the sake of getting a break from this block of text and practice making tables in Markdown I will preview  Manchester citys group from 2014 to 2020.
+First of all, I needed to find the datasets that would allow me to do the testing and I began with the easiest, the different groups that had been drawn between 2014 and 2020. When doing the tests I am using data from every group, not only Manchester citys group. But for the sake of getting a break from this block of text and practice making tables in Markdown I will preview  Manchester citys group from 2014 to 2020.
 
 | 2020-21    | 2019-20  | 2018-19    | 2017-18   | 2016-17         | 2015-16         | 2014-15        |
 |------------|----------|------------|-----------|-----------------|-----------------|----------------|
@@ -30,7 +30,7 @@ First of all, I needed to find the datasets that would allow me to do the testin
 | L'OM       | Zagreb   | Hoffenheim | Feyenoord | Celtic          | Mönchengladbach | CSKA Moscow    |
 
 
-The second dataset I had to aqquire to be able to do the testing was a dataset that ranked how great a club was for the specific year. It may sound very easy, but how do you rank a clubs accomplishment for a specific season, and how would someones assumptions make it statistically correct? I decided to make it easy for myself and use UEFA's club coefficient rank, after all thats the coefficient that UEFA uses when making the drawing pools for the lottery, which ultimately is what I want to try to find differences in. Here are some previews of the UEFA club coefficient rankings.
+The second dataset I had to acquire to be able to do the testing was a dataset that ranked how great a club was for the specific year. It may sound very easy, but how do you rank a clubs accomplishment for a specific season, and how would someones assumptions make it statistically correct? I decided to make it easy for myself and use UEFA's club coefficient rank, after all thats the coefficient that UEFA uses when making the drawing pools for the lottery, which ultimately is what I want to try to find differences in. Here are some previews of the UEFA club coefficient rankings.
 
 | Season | 2020-21            | 2019-20        | 2018-19         | 2017-18        | 2016-17               | 2015-16              | 2014-15              |
 |--------|--------------------|----------------|-----------------|----------------|-----------------------|----------------------|----------------------|
@@ -42,7 +42,7 @@ The second dataset I had to aqquire to be able to do the testing was a dataset t
 | 199    | Progrès Niederkorn | AS Trenčín     | SønderjyskE     | Randers FC     | Shakhter Karagandy    | Servette FC          | Kardemir Karabükspor |
 | 200    | FC Vaduz           | Mladá Boleslav | Randers FC      | Nordsjælland   | Helsingborgs IF       | Hapoel Kiryat Shmona | FC Midtjylland       |
 
-If you happen to watch football at all, you have probably already realized by looking at the bottom of the UEFA club ceofficient rankings that there was a huge portion of the data that I did not use.
+If you happen to watch football at all, you have probably already realized by looking at the bottom of the UEFA club coefficient rankings that there was a huge portion of the data that I did not use.
 
 When starting this little proejct I hadn't given myself time to think about how I would actually conduct the different tests I had to do in order to acually get some answers to the questions, so when I had gathered the data I belived I needed to be able to conduct the test I started to clean and process the data so R would be able to understand it and so that it would make sense to the purpose. 
 
@@ -63,7 +63,7 @@ I do believe that this data is quite bland to just look at without the raw data,
 
 Without taking anything for granted, just by looking at the mean values of the groups that Manchester city was in I get a feeling that the suspiciousness of Manchester citys easy groups may have been a bit exaggerated... But that is up to the tests to prove! (To put it simple and a tiny but dumbed down, low mean value = hard champions league group)
 
-After calculating the means of each group, I decided to scale down on the amount of teams I choose to look futher into as a lot of the teams did not make any logical sense to analyse and I decided to keep the 15 richest teams[LÄGG TILL REFERENS!] - which includes Manchester city - as those teams may be considered as the 15 biggest clubs in the world, which puts them in the same category as Manchester city. Here are the 15 clubs that is concidered to be europes biggest clubs.
+After calculating the means of each group, I decided to scale down on the amount of teams I choose to look futher into as a lot of the teams did not make any logical sense to analyse and I decided to keep the 15 richest teams https://www.sportekz.com/list/richest-football-clubs-2020/ - which includes Manchester city - as those teams may be considered as the 15 biggest clubs in the world, which puts them in the same category as Manchester city. Here are the 15 clubs that is concidered to be europes biggest clubs.
 
 | Club              |
 |-------------------|
@@ -83,7 +83,7 @@ After calculating the means of each group, I decided to scale down on the amount
 | Schalke           |
 | Inter             |
 
-I decided to process the data a bit more after shrinking it down to only 15 clubs as well, and added a coefficient value that would serve as a better reflection on how "easy" the teams group actually were, taking in to consideration the teams own ranking (as it earlier had an impact on the groups mean value making team such as Real Madrid which oftenly ranked high seem to have very hard groups since their own rank dragged down the mean quite a lot). This was done by simply subtracting the clubs club coefficient ranking from the groups mean value for each year. The data that I will import to R will now looks like this.
+I decided to process the data a bit more after shrinking it down to only 15 clubs as well, and added my own coefficient value that would serve as a better reflection on how "easy" the teams group actually were, taking in to consideration the teams own ranking (as it earlier had an impact on the groups mean value making team such as Real Madrid which oftenly ranked high seem to have very hard groups since their own rank dragged down the mean quite a lot). This was done by simply subtracting the clubs club coefficient ranking from the groups mean value for each year. The data that I will import to R will now looks like this.
 
 | Coefficient | Club              | Season  |
 |-------------|-------------------|---------|
