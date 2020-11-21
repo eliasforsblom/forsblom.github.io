@@ -11,7 +11,7 @@ pygmentscodefences = true # Enable code fence background highlighting.
 pygmentscodefencesguesssyntax = true # Enable syntax guessing for code fences without specified language.
 pygmentsUseClasses = true # new add
 
-disqusShortname = "eliasforsblom" # Enable or disable Disqus.
+disqusShortname = "https-forsblom-netlify-app" # Enable or disable Disqus.
 
 [params] # theme parameters
     author = "Elias Forsblom" # Author's name.
@@ -20,7 +20,7 @@ disqusShortname = "eliasforsblom" # Enable or disable Disqus.
     keywords = "blog,developer,personal, data analysis, statistics, data, analysis" # Site keywords.
     avatarurl = "/images/elias.jpg" 
 
-    footercontent = "Enter a text here."
+    footercontent = ""
     fixedbarContent = "Do you want to know me more private?→" 
     fixedbarContentAfter = "Thank You! Please share it if you like it→" 
 
