@@ -1,11 +1,11 @@
 ---
-title: Placeholder name
+title: Have covid-19 had an effect on how happy or sad music we choose to listen to?
 author: Elias Forsblom
-date: '2020-11-25'
+date: '2020-12-02'
 slug: []
 categories:
   - Spotify API
-  - data science
+  - Data science
   - Data analysis
 tags:
   - spotify api
