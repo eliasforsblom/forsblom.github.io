@@ -53,6 +53,8 @@ disqusShortname = "https-forsblom-netlify-app" # Enable or disable Disqus.
 
     # Multilanguage mode
     langseparator = "|" # Separates menus from language selectors when site is multilingual.
+    
+    pygmentsStyle = "tango"
 
 # Social links
 [[params.social]]
@@ -79,5 +81,7 @@ disqusShortname = "https-forsblom-netlify-app" # Enable or disable Disqus.
     name = "Contact"
     weight = 3
     url = "contact"
+[markup.goldmark.renderer]
+    unsafe = true
     
-ignoredFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$"]
+ignoreFiles = ["_cache$"]

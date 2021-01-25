@@ -1,0 +1,92 @@
+---
+title: financeR
+author: Elias Forsblom
+date: '2021-01-24'
+slug: []
+categories:
+  - Data analysis
+  - Data science
+  - financeR
+tags:
+  - financeR
+  - api
+  - wrapper
+  - stock
+  - data science
+  - data analysis
+  - stock data
+description: ''
+thumbnail: images/tn.png
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p><strong>financeR, a R wrapper which makes it easier to access and download stock data in bulk</strong></p>
+<p>It’s been quite some time since I posted on this blog now, and the reason for that is - except for a lot of school - that I spent almost all my spare time developing an R package which ended up being quite time consuming and a lot bigger than I first expected. The package, or wrapper, I developed is called financeR and is something I developed to make it easier to - hint: the name - download and conduct analysis on large amount of stock data using the <a href="https://financialmodelingprep.com/developer/docs">Financial Modelling Prep API</a>. The wrapper makes it easy to use and access the API without having to write tons of code just to download and structure simple stock data such as historic stock price as well as not requiring any knowledge of how API’s work (even though I recommend everyone to learn and understand how API’s work).</p>
+<p>I thought id give some brief examples of what you could do with this wrapper, so… here are some examples:</p>
+<p><strong><em>plotting historic stock data</em></strong></p>
+<p>First I have to install and start the package as well as setting the api:</p>
+<pre class="python"><code>install_github(&quot;oliealex/Stock-analysis&quot;, subdir = &quot;financeR&quot;)
+library(financeR)
+api &lt;- &quot;this-is-a-secret&quot;</code></pre>
+<p>After that, I am ready to go.</p>
+<pre class="r"><code>GME &lt;- historic_price(&quot;GME&quot;, &quot;full&quot;)
+PLTR &lt;- historic_price(&quot;PLTR&quot;, &quot;full&quot;)
+
+GME$date &lt;- as.Date(GME$date)
+PLTR$date &lt;- as.Date(PLTR$date)
+
+price &lt;- matrix(nrow = 79, ncol = 3)
+price &lt;- as.data.frame(price)
+price[,1] &lt;- PLTR$date[1:79]
+price[,2] &lt;- GME$close[1:79]
+price[,3] &lt;- PLTR$close[1:79]
+
+colnames(price) &lt;- c(&quot;date&quot;, &quot;GME&quot;, &quot;PLTR&quot;)
+
+df &lt;- price %&gt;%
+  select(date, GME, PLTR) %&gt;%
+  gather(key = &quot;variable&quot;, value = &quot;value&quot;, -date)
+
+
+p &lt;- ggplot(df, aes(x = date, y = value)) +
+  geom_line(aes(color = variable, linetype = variable)) +
+  scale_color_manual(values = c(&quot;darkred&quot;, &quot;steelblue&quot;)) +
+  theme_bw()
+p</code></pre>
+<p><img src="/posts/2021-01-24-financer/index.en_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><strong><em>Finding the stocks that have gained the most % increase for the day</em></strong></p>
+<p>This is a simple one</p>
+<pre class="r"><code>mostgainer &lt;- most_gainer()
+head(mostgainer)</code></pre>
+<pre><code>##   ticker changes price changesPercentage                     companyName
+## 1   EXPR   2.365 4.155        (+132.12%)                     Express Inc
+## 2   AMTX   3.925 8.325         (+89.20%)                     Aemetis Inc
+## 3    OEG   3.080  8.08         (+61.60%)        Orbital Energy Group Inc
+## 4   KOSS   2.000  5.34         (+59.88%)                       Koss Corp
+## 5   YGMZ   9.480 26.78         (+54.80%) MingZhu Logistics Holdings Limi
+## 6   ATOS   0.950  2.82         (+50.80%)         Atossa Therapeutics Inc</code></pre>
+<p><strong><em>We can also look at other things than stock prices, such as company ratings</em></strong></p>
+<pre class="r"><code>ratings &lt;- company_ratings(c(&quot;AAPL&quot;, &quot;MSFT&quot;, &quot;PLTR&quot;, &quot;GME&quot;))
+ratings[,1:5]</code></pre>
+<pre><code>##   symbol       date rating ratingScore ratingRecommendation
+## 1   AAPL 2021-01-22     S-           5           Strong Buy
+## 2   MSFT 2021-01-22     S-           5           Strong Buy
+## 3   PLTR 2021-01-22      B           3              Neutral
+## 4    GME 2021-01-22      A           4                  Buy</code></pre>
+<p>__* Or if you are more into technical stuff, there are plenty of technical indicators *__</p>
+<pre class="r"><code>smadata &lt;- daily_indicators(ticker = &quot;GME&quot;, period = &quot;10&quot;, type = &quot;sma&quot;)
+smadata$date &lt;- as.Date(smadata$date)
+shortsmadata &lt;- smadata[1:50,]
+
+p &lt;- ggplot(shortsmadata, aes(x = date)) +
+  geom_line(aes(y = close), size = 1, color = &quot;darkred&quot;) +
+  geom_line(aes(y = sma), size = 1, color = &quot;steelblue&quot;, linetype = &quot;twodash&quot;) +
+  ggtitle(&quot;Gamestop stock price with associated simple moving average&quot;) +
+  theme(
+    plot.title = element_text(hjust = 0.5)
+    ) 
+p</code></pre>
+<p><img src="/posts/2021-01-24-financer/index.en_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>The example’s I showed is just scraping the surface of the possibilities you have with this wrapper, both regarding the poor visualization that i showcased in the examples but also regarding the analytics. For now the package most likely have quite a lot of bugs, something which I will frequently update. I will also be adding more functionality later on, but for now the focus is on making whats already there more efficient and bug-free.</p>

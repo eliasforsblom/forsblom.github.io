@@ -1,0 +1,112 @@
+---
+title: financeR
+author: Elias Forsblom
+date: '2021-01-24'
+slug: []
+categories:
+  - Data analysis
+  - Data science
+  - financeR
+tags:
+  - financeR
+  - api
+  - wrapper
+  - stock
+  - data science
+  - data analysis
+  - stock data
+description: ''
+thumbnail: images/tn.png
+---
+
+```{r, include=FALSE}
+library(financeR)
+library(httr)
+library(jsonlite)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(financeR)
+library(lubridate)
+api <- "7a9b4f83bf8183ccd6f27602ca7d06b7"
+```
+
+**financeR, a R wrapper which makes it easier to access and download stock data in bulk**
+
+It's been quite some time since I posted on this blog now, and the reason for that is - except for a lot of school - that I spent almost all my spare time developing an R package which ended up being quite time consuming and a lot bigger than I first expected. The package, or wrapper, I developed is called financeR and is something I developed to make it easier to - hint: the name - download and conduct analysis on large amount of stock data using the [Financial Modelling Prep API](https://financialmodelingprep.com/developer/docs). The wrapper makes it easy to use and access the API without having to write tons of code just to download and structure simple stock data such as historic stock price as well as not requiring any knowledge of how API's work (even though I recommend everyone to learn and understand how API's work).
+
+I thought id give some brief examples of what you could do with this wrapper, so... here are some examples:
+
+__*plotting historic stock data*__
+
+First I have to install and start the package as well as setting the api:
+
+```Python
+install_github("oliealex/Stock-analysis", subdir = "financeR")
+library(financeR)
+api <- "this-is-a-secret"
+```
+
+After that, I am ready to go.
+
+```{r}
+GME <- historic_price("GME", "full")
+PLTR <- historic_price("PLTR", "full")
+
+GME$date <- as.Date(GME$date)
+PLTR$date <- as.Date(PLTR$date)
+
+price <- matrix(nrow = 79, ncol = 3)
+price <- as.data.frame(price)
+price[,1] <- PLTR$date[1:79]
+price[,2] <- GME$close[1:79]
+price[,3] <- PLTR$close[1:79]
+
+colnames(price) <- c("date", "GME", "PLTR")
+
+df <- price %>%
+  select(date, GME, PLTR) %>%
+  gather(key = "variable", value = "value", -date)
+
+
+p <- ggplot(df, aes(x = date, y = value)) +
+  geom_line(aes(color = variable, linetype = variable)) +
+  scale_color_manual(values = c("darkred", "steelblue")) +
+  theme_bw()
+p
+```
+
+__*Finding the stocks that have gained the most % increase for the day*__
+
+This is a simple one
+
+```{r}
+mostgainer <- most_gainer()
+head(mostgainer)
+```
+
+__*We can also look at other things than stock prices, such as company ratings*__
+
+```{r}
+ratings <- company_ratings(c("AAPL", "MSFT", "PLTR", "GME"))
+ratings[,1:5]
+```
+
+__* Or if you are more into technical stuff, there are plenty of technical indicators *__
+
+```{r}
+smadata <- daily_indicators(ticker = "GME", period = "10", type = "sma")
+smadata$date <- as.Date(smadata$date)
+shortsmadata <- smadata[1:50,]
+
+p <- ggplot(shortsmadata, aes(x = date)) +
+  geom_line(aes(y = close), size = 1, color = "darkred") +
+  geom_line(aes(y = sma), size = 1, color = "steelblue", linetype = "twodash") +
+  ggtitle("Gamestop stock price with associated simple moving average") +
+  theme(
+    plot.title = element_text(hjust = 0.5)
+    ) 
+p
+```
+
+The example's I showed is just scraping the surface of the possibilities you have with this wrapper, both regarding the poor visualization that i showcased in the examples but also regarding the analytics. For now the package most likely have quite a lot of bugs, something which I will frequently update. I will also be adding more functionality later on, but for now the focus is on making whats already there more efficient and bug-free.
