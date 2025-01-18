@@ -21,7 +21,7 @@ disqusShortname = "https-forsblom-netlify-app" # Enable or disable Disqus.
     avatarurl = "/images/elias.jpg" 
 
     footercontent = ""
-    fixedbarContent = "Do you want to know me more private?→" 
+    fixedbarContent = "Do you want to connect?→" 
     fixedbarContentAfter = "Thank You! Please share it if you like it→" 
 
     # Whether you want to hide copyright and credits in the footer.
