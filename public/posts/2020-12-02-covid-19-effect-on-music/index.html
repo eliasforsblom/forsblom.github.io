@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Elias Forsblom">
+    <meta name="description" content="http://localhost:4321/">
+    <meta name="keywords" content="blog,developer,personal, data analysis, statistics, data, analysis">
+
+    <meta property="og:site_name" content="Elias Forsblom">
+    <meta property="og:title" content="
+  Have covid-19 had an effect on how happy or sad music we choose to listen to? - Elias Forsblom
+">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://localhost:4321/posts/2020-12-02-covid-19-effect-on-music/">
+    <meta property="og:image" content="http://localhost:4321/images/tn.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="http://localhost:4321/posts/2020-12-02-covid-19-effect-on-music/">
+    <meta name="twitter:image" content="http://localhost:4321/images/tn.png">
+
+    <base href="http://localhost:4321/posts/2020-12-02-covid-19-effect-on-music/">
+    <title>
+  Have covid-19 had an effect on how happy or sad music we choose to listen to? - Elias Forsblom
+</title>
+
+    <link rel="canonical" href="http://localhost:4321/posts/2020-12-02-covid-19-effect-on-music/">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="/css/normalize.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    
+      <link rel="alternate" href="http://localhost:4321/index.xml" type="application/rss+xml" title="Elias Forsblom">
+      <link href="http://localhost:4321/index.xml" rel="feed" type="application/rss+xml" title="Elias Forsblom" />
+    
+
+    <meta name="generator" content="Hugo 0.123.7">
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">Elias Forsblom</a>
+    <input type="checkbox" id="menu-control"/>
+    <label class="menu-mobile  float-right " for="menu-control">
+      <span class="btn-mobile  float-right ">&#9776;</span>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="http://localhost:4321/posts">Blog</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="http://localhost:4321/about">About</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="http://localhost:4321/contact">Contact</a>
+            </li>
+          
+        
+        
+      </ul>
+    </label>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">Have covid-19 had an effect on how happy or sad music we choose to listen to?</h1>
+      <h2 class="date">December 2, 2020</h2>
+
+      
+    </header>
+
+    <p>Inspired by the incredible post &ldquo;Using Data to Find the Angriest Death Grips Song&rdquo; by Evan Oppenheimer <em>(Link in the end of this post)</em> I decided I also would play around and get acquainted with the spotify API and at the same time get to better my skills in data science overall.</p>
+<p>Going into this &ldquo;project&rdquo;, and even by the time of starting to write this post I had no idea of what I actually wanted to do, so the first thing I did was to explore the spotify API to see what options i had and if there was someting that I would find intereseting to dig deeper into.</p>
+<p>I installed the spotify API package</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="s1">&#39;spotifyr&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">devtools</span><span class="p">::</span><span class="n">install_github</span><span class="p">(</span><span class="s1">&#39;charlie86/spotifyr&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">library</span><span class="p">(</span><span class="n">knitr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Sys</span><span class="o">.</span><span class="n">setenv</span><span class="p">(</span><span class="n">SPOTIFY_CLIENT_ID</span> <span class="o">=</span> <span class="s1">&#39;THISISASECRET&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Sys</span><span class="o">.</span><span class="n">setenv</span><span class="p">(</span><span class="n">SPOTIFY_CLIENT_SECRET</span> <span class="o">=</span> <span class="s1">&#39;THISISASECRET&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">access_token</span> <span class="o">&lt;-</span> <span class="n">get_spotify_access_token</span><span class="p">()</span>
+</span></span></code></pre></div><p>and instantly started to play around with some of the functions, such as get_artist_audio_features().</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">paramore</span> <span class="o">&lt;-</span> <span class="n">get_artist_audio_features</span><span class="p">(</span><span class="s1">&#39;paramore&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><p>I looked around in the dataset it created and noticed the column named &ldquo;valence&rdquo;, which spotify themselves says &ldquo;describes the musical positiveness conveyed by a track&rdquo;. Tracks with high valence sound more positive, while tracks with low valence sound more negative.</p>
+<p>I remebered that I recently had read another data science post regarding the spotify API, where the author was testing if the different european countries had differences in the enjoyment of sad music, in other words, if some countries listen to music with a lower value of valence <em>(Link in the end of this post)</em>.</p>
+<p>This made me curious, could Covid-19 have an effect on which music we choose to listen to? And more specifically, could Covid-19 possible effect us into listening to sadder music than usual? Or maybe happier? Either way, I decided that I would try to look in to it!</p>
+<p>The first step was to gather the data, and luckily spotify have the top 200 global music well documented for the last 4 years. Unfortunately though, it was only possible to download 1 week worth of the top 200 list at a time. It would of taken to much time to manually download 208 weeks worth of .csv documents so I decided to settle with analyzing 1 specific week for all the years, the last week of mars. The reasoning behind choosing the last week in mars was quite simlpe, it was one of the thougher weeks through this pandemic and if there would be a significant effect on what music we choose to listen to, it would probably be noticable for that specific week.</p>
+<p>The raw data looked like this when I imported it to R.</p>
+<table>
+<thead>
+<tr>
+<th>2017</th>
+<th>Position</th>
+<th>Track name</th>
+<th>Artist</th>
+<th>Streams</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>1</td>
+<td>Shape of you</td>
+<td>Ed Sheeran</td>
+<td>48548944</td>
+</tr>
+<tr>
+<td></td>
+<td>2</td>
+<td>Passionfruit</td>
+<td>Drake</td>
+<td>32675350</td>
+</tr>
+<tr>
+<td></td>
+<td>3</td>
+<td>It ain&rsquo;t me</td>
+<td>Kygo</td>
+<td>28840908</td>
+</tr>
+<tr>
+<td></td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+<tr>
+<td></td>
+<td>198</td>
+<td>The greatest</td>
+<td>Sia</td>
+<td>3245105</td>
+</tr>
+<tr>
+<td></td>
+<td>199</td>
+<td>White Iverson</td>
+<td>Post Malone</td>
+<td>3243171</td>
+</tr>
+<tr>
+<td></td>
+<td>200</td>
+<td>It&rsquo;s gotta be you</td>
+<td>Isaiah Firebrace</td>
+<td>3234882</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>2018</th>
+<th>Position</th>
+<th>Track name</th>
+<th>Artist</th>
+<th>Streams</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>1</td>
+<td>God&rsquo;s Plan</td>
+<td>Drake</td>
+<td>42879151</td>
+</tr>
+<tr>
+<td></td>
+<td>2</td>
+<td>Psycho (feat. Ty Dolla $ign)</td>
+<td>Post Malone</td>
+<td>31221103</td>
+</tr>
+<tr>
+<td></td>
+<td>3</td>
+<td>SAD!</td>
+<td>XXXTENTACION</td>
+<td>27215954</td>
+</tr>
+<tr>
+<td></td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+<tr>
+<td></td>
+<td>198</td>
+<td>Stay</td>
+<td>Zedd</td>
+<td>3711565</td>
+</tr>
+<tr>
+<td></td>
+<td>199</td>
+<td>I Dont Wanna Live Forever</td>
+<td>Zayn</td>
+<td>3698909</td>
+</tr>
+<tr>
+<td></td>
+<td>200</td>
+<td>Wild Thoughts</td>
+<td>DJ Khaled</td>
+<td>3697677</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>2019</th>
+<th>Position</th>
+<th>Track name</th>
+<th>Artist</th>
+<th>Streams</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>1</td>
+<td>7 rings</td>
+<td>Ariana Grande</td>
+<td>31265664</td>
+</tr>
+<tr>
+<td></td>
+<td>2</td>
+<td>Con Calma</td>
+<td>Daddy Yankee</td>
+<td>31111446</td>
+</tr>
+<tr>
+<td></td>
+<td>3</td>
+<td>Sucker</td>
+<td>Jonas Brothers</td>
+<td>26364572</td>
+</tr>
+<tr>
+<td></td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+<tr>
+<td></td>
+<td>198</td>
+<td>bad idea</td>
+<td>Ariana Grande</td>
+<td>4485687</td>
+</tr>
+<tr>
+<td></td>
+<td>199</td>
+<td>Thinking out Loud</td>
+<td>Ed Sheeran</td>
+<td>4484846</td>
+</tr>
+<tr>
+<td></td>
+<td>200</td>
+<td>In My Blood</td>
+<td>Shawn Mendes</td>
+<td>4467407</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>2020</th>
+<th>Position</th>
+<th>Track name</th>
+<th>Artist</th>
+<th>Streams</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>1</td>
+<td>Blinding Lights</td>
+<td>The Weeknd</td>
+<td>52375259</td>
+</tr>
+<tr>
+<td></td>
+<td>2</td>
+<td>The Box</td>
+<td>Roddy Ricch</td>
+<td>33753609</td>
+</tr>
+<tr>
+<td></td>
+<td>3</td>
+<td>Dance Monkey</td>
+<td>Tones And I</td>
+<td>31463007</td>
+</tr>
+<tr>
+<td></td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+<tr>
+<td></td>
+<td>198</td>
+<td>Girls Like You (feat.   Cardi B)</td>
+<td>Maroon 5</td>
+<td>4515388</td>
+</tr>
+<tr>
+<td></td>
+<td>199</td>
+<td>changes</td>
+<td>XXXTENTACION</td>
+<td>4507185</td>
+</tr>
+<tr>
+<td></td>
+<td>200</td>
+<td>esta cabron se yo</td>
+<td>Bad Bunny</td>
+<td>4438261</td>
+</tr>
+</tbody>
+</table>
+<p>After the data was imported to R, I had to first convert the track names to track-ids, as that was not a part of the dataset that I got from spotifycharts. I created a for-loop - with help from the already existing search function from the spotifyr package - that could conduct the search for the track-id as well as creating a vector to store the ids in.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">length</span><span class="p">(</span><span class="n">top2017vecw</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">  <span class="n">search</span> <span class="o">&lt;-</span> <span class="n">search_spotify</span><span class="p">(</span><span class="n">top2017vecw</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="nb">type</span> <span class="o">=</span> <span class="s2">&#34;track&#34;</span><span class="p">,</span> <span class="n">limit</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">top2017idw</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="n">search</span><span class="err">$</span><span class="nb">id</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Once all the track-ids was gathered, I had wanted to find out the tracks valence values.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="n">af2017w</span> <span class="o">&lt;-</span> <span class="n">get_track_audio_features</span><span class="p">(</span><span class="n">top2017idw</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">100</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">af20172w</span> <span class="o">&lt;-</span> <span class="n">get_track_audio_features</span><span class="p">(</span><span class="n">top2017idw</span><span class="p">[</span><span class="mi">101</span><span class="p">:</span><span class="mi">200</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">head</span><span class="p">(</span><span class="n">valenceanalysis</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">valence</span> <span class="n">year</span>   <span class="n">weight</span>
+</span></span><span class="line"><span class="cl"><span class="mi">1</span>   <span class="mf">0.931</span> <span class="mi">2017</span> <span class="mi">48548944</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2</span>   <span class="mf">0.364</span> <span class="mi">2017</span> <span class="mi">32675350</span>
+</span></span><span class="line"><span class="cl"><span class="mi">3</span>   <span class="mf">0.539</span> <span class="mi">2017</span> <span class="mi">28840908</span>
+</span></span><span class="line"><span class="cl"><span class="mi">4</span>   <span class="mf">0.446</span> <span class="mi">2017</span> <span class="mi">27218668</span>
+</span></span><span class="line"><span class="cl"><span class="mi">5</span>   <span class="mf">0.781</span> <span class="mi">2017</span> <span class="mi">24106534</span>
+</span></span><span class="line"><span class="cl"><span class="mi">6</span>   <span class="mf">0.839</span> <span class="mi">2017</span> <span class="mi">23272542</span>
+</span></span></code></pre></div><p>At this point, I am finally ready to conduct some testing.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="n">meansbar</span> <span class="o">&lt;-</span> <span class="n">summarySE</span><span class="p">(</span><span class="n">valenceanalysis</span><span class="p">,</span> <span class="n">measurevar</span><span class="o">=</span><span class="s2">&#34;valence&#34;</span><span class="p">,</span> <span class="n">groupvars</span><span class="o">=</span><span class="n">c</span><span class="p">(</span><span class="s2">&#34;year&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ggplot</span><span class="p">(</span><span class="n">meansbar</span><span class="p">,</span> <span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">year</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">valence</span><span class="p">))</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">geom_bar</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position_dodge</span><span class="p">(),</span> <span class="n">colour</span> <span class="o">=</span> <span class="s2">&#34;black&#34;</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&#34;identity&#34;</span><span class="p">,</span> <span class="n">aes</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="n">year</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="n">geom_errorbar</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">ymin</span><span class="o">=</span><span class="n">valence</span><span class="o">-</span><span class="n">ci</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="n">valence</span><span class="o">+</span><span class="n">ci</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">width</span><span class="o">=</span><span class="mf">.2</span><span class="p">,</span>                   
+</span></span><span class="line"><span class="cl">                <span class="n">position</span><span class="o">=</span><span class="n">position_dodge</span><span class="p">(</span><span class="mf">.9</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="n">theme_bw</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="n">scale_fill_brewer</span><span class="p">(</span><span class="nb">type</span> <span class="o">=</span> <span class="s2">&#34;qual&#34;</span><span class="p">,</span> <span class="n">palette</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span>
+</span></span></code></pre></div><p><img src="/images/valancemean.jpeg" alt="Valence mean"></p>
+<p>Above you can see the mean valence plotted against each year, with an associated confidence interval with a confidence grade of 95%. By looking at this graph, we can quite confidently say that Covid-19 at least did not have an effect on the valence of the music climbs into the top 200 charts.</p>
+<p>I decided to conduct a test either way, since this plot did not take the amount of streams into account.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="n">model</span> <span class="o">&lt;-</span> <span class="n">aov</span><span class="p">(</span><span class="n">valence</span> <span class="o">~</span> <span class="n">year</span><span class="p">,</span> <span class="n">weights</span> <span class="o">=</span> <span class="n">weight</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">valenceanalysis</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">anova</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Analysis</span> <span class="n">of</span> <span class="n">Variance</span> <span class="n">Table</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Response</span><span class="p">:</span> <span class="n">valence</span>
+</span></span><span class="line"><span class="cl">           <span class="n">Df</span>    <span class="n">Sum</span> <span class="n">Sq</span> <span class="n">Mean</span> <span class="n">Sq</span> <span class="n">F</span> <span class="n">value</span> <span class="n">Pr</span><span class="p">(</span><span class="o">&gt;</span><span class="n">F</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">year</span>        <span class="mi">3</span>    <span class="mi">670019</span>  <span class="mi">223340</span>  <span class="mf">0.5325</span> <span class="mf">0.6601</span>
+</span></span><span class="line"><span class="cl"><span class="n">Residuals</span> <span class="mi">796</span> <span class="mi">333877154</span>  <span class="mi">419444</span>
+</span></span></code></pre></div><p>Looking at the P-value from the row &lsquo;year&rsquo;, we can see that neither the model which uses the number of streams as a weight shows any significant differences.</p>
+<p>In other words, by doing this analysis I could not find anything that indicates some type of behaviour chnage in what music we have chosen to listen during one of the rougher week - considering death&rsquo;s - during this pandemic. However, I do belive that there could still be valuable to look deeper into the subject and maybe analyse the the entierty of the year - or pandemic period - once it is over, maybe we could be able to see a pattern of changed behaviour throughout the period? Or maybe a week worth of data isnt enough to see a difference. It is also hard to say that a week in Mars is where people would have started to change behaviour, after all, the pandemic had only been present in europe for a couple of months and even though it was a rough week concidering death cases, I have nothing else that indicates that the last week of mars would be worse than a random week in for example August when people had been in the pandemic for a much longer time, with restrictions and everything that it means. I will definitley revisit this topic once the pandemic is over!</p>
+<p>And as promised, here are the blogposts i referred to in the text:</p>
+<p><a href="https://towardsdatascience.com/angriest-death-grips-data-anger-502168c1c2f0">Using Data to Find the Angriest Death Grips Song</a></p>
+<p><a href="http://paulelvers.com/post/emotionsineuropeanmusic/">Sentiment analysis of musical taste: a cross-European comparison</a></p>
+
+  </article>
+
+  <br/>
+
+  
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-forsblom-netlify-app" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  
+  
+</section>
+
+      </div>
+      
+        <footer class="footer">
+  <section class="container">
+    
+      <div class="sns-shares sp-sns-shares">
+        
+          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=http%3a%2f%2flocalhost%3a4321%2fposts%2f2020-12-02-covid-19-effect-on-music%2f&ref_src=twsrc%5Etfw&text=Have%20covid-19%20had%20an%20effect%20on%20how%20happy%20or%20sad%20music%20we%20choose%20to%20listen%20to%3f Elias%20Forsblom&tw_p=tweetbutton&url=http%3a%2f%2flocalhost%3a4321%2fposts%2f2020-12-02-covid-19-effect-on-music%2f"><i class="fab fa-twitter"></i></a>
+        
+        
+          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=http%3a%2f%2flocalhost%3a4321%2fposts%2f2020-12-02-covid-19-effect-on-music%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
+        
+        
+        
+        
+          <a class="sns-share linkedIn-share" href="https://www.linkedin.com/sharing/share-offsite/?url=http%3a%2f%2flocalhost%3a4321%2fposts%2f2020-12-02-covid-19-effect-on-music%2f"><i class="fab fa-linkedin"></i></a>
+        
+      </div>
+    
+    
+     
+
+  </section>
+</footer>
+<div class="fixed-bar">
+  <section class="container">
+    
+      <p id="privateTriggerText">Do you want to know me more private?→<a id="privateTrigger">Click!</a></p>
+    
+    
+      <div class="sns-shares pc-sns-shares">
+        
+          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=http%3a%2f%2flocalhost%3a4321%2fposts%2f2020-12-02-covid-19-effect-on-music%2f&ref_src=twsrc%5Etfw&text=Have%20covid-19%20had%20an%20effect%20on%20how%20happy%20or%20sad%20music%20we%20choose%20to%20listen%20to%3f Elias%20Forsblom&tw_p=tweetbutton&url=http%3a%2f%2flocalhost%3a4321%2fposts%2f2020-12-02-covid-19-effect-on-music%2f"><i class="fab fa-twitter"></i></a>
+        
+        
+          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=http%3a%2f%2flocalhost%3a4321%2fposts%2f2020-12-02-covid-19-effect-on-music%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
+        
+        
+        
+        
+          <a class="sns-share linkedIn-share" href="https://www.linkedin.com/sharing/share-offsite/?url=http%3a%2f%2flocalhost%3a4321%2fposts%2f2020-12-02-covid-19-effect-on-music%2f"><i class="fab fa-linkedin"></i></a>
+        
+      </div>
+    
+  </section>
+</div>
+
+      
+    </main>
+
+    
+
+  <script src="/js/app.js"></script>
+  
+  <script>
+  (function($) {
+    $(function() {
+      $('#privateTrigger').on('click', function() {
+        $('.private').slideToggle();
+        $('#privateTriggerText').text("Thank You! Please share it if you like it→");
+      });
+    });
+   })(jQuery);
+  </script>
+  
+  </body>
+</html>

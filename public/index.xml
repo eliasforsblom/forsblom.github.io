@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Elias Forsblom</title>
+    <link>http://localhost:4321/</link>
+    <description>Recent content on Elias Forsblom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 24 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:4321/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>financeR</title>
+      <link>http://localhost:4321/posts/2021-01-24-financer/</link>
+      <pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:4321/posts/2021-01-24-financer/</guid>
+      <description>financeR, a R wrapper which makes it easier to access and download stock data in bulk&#xA;It’s been quite some time since I posted on this blog now, and the reason for that is - except for a lot of school - that I spent almost all my spare time developing an R package which ended up being quite time consuming and a lot bigger than I first expected. The package, or wrapper, I developed is called financeR and is something I developed to make it easier to - hint: the name - download and conduct analysis on large amount of stock data using the Financial Modelling Prep API.</description>
+    </item>
+    <item>
+      <title>Have covid-19 had an effect on how happy or sad music we choose to listen to?</title>
+      <link>http://localhost:4321/posts/2020-12-02-covid-19-effect-on-music/</link>
+      <pubDate>Wed, 02 Dec 2020 00:00:00 +0000</pubDate>
+      <guid>http://localhost:4321/posts/2020-12-02-covid-19-effect-on-music/</guid>
+      <description>Inspired by the incredible post &amp;ldquo;Using Data to Find the Angriest Death Grips Song&amp;rdquo; by Evan Oppenheimer (Link in the end of this post) I decided I also would play around and get acquainted with the spotify API and at the same time get to better my skills in data science overall.&#xA;Going into this &amp;ldquo;project&amp;rdquo;, and even by the time of starting to write this post I had no idea of what I actually wanted to do, so the first thing I did was to explore the spotify API to see what options i had and if there was someting that I would find intereseting to dig deeper into.</description>
+    </item>
+    <item>
+      <title>Suspiciously easy champions league groups for Manchester city?</title>
+      <link>http://localhost:4321/posts/2020-11-16-suspiciously-easy-champions-league-groups-for-manchester-city/</link>
+      <pubDate>Tue, 17 Nov 2020 00:00:00 +0000</pubDate>
+      <guid>http://localhost:4321/posts/2020-11-16-suspiciously-easy-champions-league-groups-for-manchester-city/</guid>
+      <description>Or just a silly comment made by rival football fans?&#xA;2 months ago the 2020-21 seasons champions league group stage was drawn and both on pubs and on the internet you could hear and read about Manchester citys - once again - shockingly easy draw. Trying to be as unbiased as I can as a Chelsea supporter I looked at the 2020-21 drawings as well as previous drawings and couldn&amp;rsquo;t help feeling that Manchester citys groups the past 4 years do seem to be suspiciously easy, but from experience I am also aware that just looking at the different club names trying to form an opinion without being biased is quite hard if not impossible, especially looking a couple years back trying to remember how great a specific club was that specific year.</description>
+    </item>
+    <item>
+      <title>About Elias</title>
+      <link>http://localhost:4321/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:4321/about/</guid>
+      <description>Hi. My name is Elias and I am currently studying the Bachelor&amp;rsquo;s programme in statistics and data analysis at Linköpings universitet.&#xA;I have a huge passion for everything related to data, sports and music.</description>
+    </item>
+    <item>
+      <title>Contact</title>
+      <link>http://localhost:4321/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:4321/contact/</guid>
+      <description>Want Contact? Do you have questions or suggestions? Feel free to open an issue on GitHub or ask me on Linkedin.</description>
+    </item>
+    <item>
+      <title>Projects</title>
+      <link>http://localhost:4321/projects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:4321/projects/</guid>
+      <description>Portfolio Demo Coder Portfolio This theme is created based on hugo-coder.&#xA;I made it possible to tell yourself more by my change.</description>
+    </item>
+  </channel>
+</rss>

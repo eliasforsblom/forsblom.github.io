@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Api on Elias Forsblom</title>
+    <link>http://localhost:4321/tags/api/</link>
+    <description>Recent content in Api on Elias Forsblom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 24 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:4321/tags/api/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>financeR</title>
+      <link>http://localhost:4321/posts/2021-01-24-financer/</link>
+      <pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:4321/posts/2021-01-24-financer/</guid>
+      <description>financeR, a R wrapper which makes it easier to access and download stock data in bulk&#xA;It’s been quite some time since I posted on this blog now, and the reason for that is - except for a lot of school - that I spent almost all my spare time developing an R package which ended up being quite time consuming and a lot bigger than I first expected. The package, or wrapper, I developed is called financeR and is something I developed to make it easier to - hint: the name - download and conduct analysis on large amount of stock data using the Financial Modelling Prep API.</description>
+    </item>
+  </channel>
+</rss>
