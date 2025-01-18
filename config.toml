@@ -15,7 +15,7 @@ disqusShortname = "https-forsblom-netlify-app" # Enable or disable Disqus.
 
 [params] # theme parameters
     author = "Elias Forsblom" # Author's name.
-    info = "Statistics and data analysis student" # Author's job title or info.
+    info = "Computer Science stucent with a specialization in Data Science and Statistics" # Author's job title or info.
     description = "Elias Forsblom's academic blog" # Site description.
     keywords = "blog,developer,personal, data analysis, statistics, data, analysis" # Site keywords.
     avatarurl = "/images/elias.jpg" 
